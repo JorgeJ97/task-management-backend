@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { CategoryTypes, PriorityLevels } from "../utils/enums";
+import { CategoryTypes, PriorityLevels } from "../types/task.types";
 
 export interface ITask extends Document {
     title: string;
@@ -36,7 +36,7 @@ const TaskSchema : Schema = new Schema({
             values: Object.values(CategoryTypes),
             message: 'Category must be one of: personal, work, urgent, reminder, general'
         },
-        require:[true, 'Category is required']
+        default: CategoryTypes.GENERAL
     },
     priority: {
         type: String,
