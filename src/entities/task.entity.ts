@@ -1,4 +1,4 @@
-import { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 import { CategoryTypes, PriorityLevels } from "../utils/enums";
 
 export interface ITask extends Document {
@@ -72,4 +72,4 @@ TaskSchema.index({ userId: 1, createdAt: -1});
 TaskSchema.index({category:1, priority:1});
 TaskSchema.index({completed:1, deadline:1});
 
-export default TaskSchema;
+export const Task = mongoose.model<ITask>('Task', TaskSchema);
