@@ -18,11 +18,14 @@ export interface TaskFilters {
     search?: string;
     deadlineFrom?: Date;
     deadlineTo?: Date;
+    createdAtFrom?: Date;
+    createdAtTo?: Date;
 }
 export interface TaskStats {
     totalTasks: number;
     completedTasks: number;
     pendingTasks: number;
+    completionRate: number;
     tasksByCategory: Record<CategoryTypes, number>;
     tasksByPriority: Record<PriorityLevels, number>;
 }
@@ -37,4 +40,49 @@ export interface CreateTaskData {
     userEmail: string;
 }
 
-export interface UpdateTaskData extends Partial<Omit<CreateTaskData, 'userId' | 'userEmail'>> {}
+export interface PriorityAggregationResult {
+    _id: PriorityLevels;
+    count: number;
+}
+
+export interface CategoryAggregationResult {
+    _id: CategoryTypes;
+    count: number;
+}
+
+export interface UpdateTaskData extends Partial<Omit<CreateTaskData, 'userId' | 'userEmail'>> {
+    id: string;
+}
+
+export interface MongoTaskQuery {
+    userId: string;
+    completed?: boolean;
+    category?: CategoryTypes;
+    priority?: PriorityLevels;
+    deadline?: {
+        $gte?: Date;
+        $lte?: Date;
+    };
+    createdAt?: {
+        $gte?: Date;
+        $lte?: Date;
+    };
+    $or?: Array<{
+        title?: { $regex: string; $options: string };
+        description?: { $regex: string; $options: string };
+    }>;
+}
+
+export interface PaginationInfo {
+  page: number;
+  limit: number;
+  total: number;
+  pages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
+}
+
+export interface TasksResponse <KTask>{
+    tasks: KTask[] | [];
+    pagination: PaginationInfo;
+}
