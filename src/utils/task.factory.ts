@@ -3,7 +3,7 @@ import type { CreateTaskData } from "../types/task.types";
 
 
 export class TaskFactory {
-    private static DEFAULT_DESCRIPTION = "No description provided";
+    private static DEFAULT_DESCRIPTION = "Sin descripción";
     private static DEFAULT_COMPLETED = false;
 
     static createTask(taskData: CreateTaskData): CreateTaskData {
@@ -25,10 +25,11 @@ export class TaskFactory {
                 taskData = this.setDefaultValues(taskData);
                 break;
             case CategoryTypes.GENERAL:
-                taskData.priority = taskData.priority || PriorityLevels.LOW;
+                taskData.priority = taskData.priority || PriorityLevels.MEDIUM;
                 taskData = this.setDefaultValues(taskData);
                 break;
             default:
+                taskData.category = CategoryTypes.GENERAL;
                 taskData.priority = taskData.priority || PriorityLevels.MEDIUM;
                 taskData = this.setDefaultValues(taskData);
     }
