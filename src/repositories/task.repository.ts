@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Task, type ITask } from "../entities/task.entity";
 import type { ITaskRepository } from "../interfaces/repositories/task-repository.interface";
 import type { CategoryAggregationResult, CreateTaskData, MongoTaskQuery, PriorityAggregationResult } from "../types/task.types";
@@ -49,12 +50,43 @@ export class TaskRepository implements ITaskRepository<ITask> {
     }
 
 
-    async update(id: string, updates: Partial<ITask>): Promise<ITask | null> {
-        return await Task.findByIdAndUpdate(id, updates, { new: true });
+    async update(userId: string,id:string, updates: Partial<ITask>): Promise<ITask | null> {
+        // Validar que el ID es un ObjectId válido
+        if(!mongoose.Types.ObjectId.isValid(id)) throw new Error('Invalid task ID format');
+
+        // Actualizar solo si la tarea pertenece al usuario
+        const updatedTask = await Task.findOneAndUpdate(
+            { 
+                _id: id, 
+                userId // Verificar ownership 
+            },
+            {
+                ...updates,
+            },
+            { 
+                new: true, // Retornar documento actualizado
+                runValidators: true // Ejecutar validadores del schema
+            }
+        );
+        return updatedTask;
     }
 
-    async delete(id: string): Promise<ITask | null> {
-        return await Task.findByIdAndDelete(id);
+    async delete(id: string, userId: string): Promise<ITask | null> {
+        // Validar que el ID es un ObjectId válido
+        if(!mongoose.Types.ObjectId.isValid(id)) throw new Error('Invalid task ID format');
+
+        return await Task.findOneAndDelete(
+            { _id: id,
+              userId
+             }
+
+        )
+    }
+    
+    async findOne(id:string, userId:string ): Promise<ITask | null> {
+        // Validar que el ID es un ObjectId válido
+        if(!mongoose.Types.ObjectId.isValid(id)) throw new Error('Invalid task ID format'); 
+        return await Task.findOne({ _id: id, userId });
     }
 
 

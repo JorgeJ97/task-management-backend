@@ -12,14 +12,14 @@ export enum PriorityLevels {
     HIGH = 'high'
 } 
 export interface TaskFilters {
-    completed?: boolean;
-    category?: CategoryTypes;
-    priority?: PriorityLevels;
-    search?: string;
-    deadlineFrom?: Date;
-    deadlineTo?: Date;
-    createdAtFrom?: Date;
-    createdAtTo?: Date;
+    completed?: boolean | undefined;
+    category?: CategoryTypes | undefined;
+    priority?: PriorityLevels | undefined;
+    search?: string | undefined;
+    deadlineFrom?: Date | undefined;
+    deadlineTo?: Date | undefined;
+    createdAtFrom?: Date | undefined;
+    createdAtTo?: Date | undefined;
 }
 export interface TaskStats {
     totalTasks: number;
@@ -31,11 +31,11 @@ export interface TaskStats {
 }
 export interface CreateTaskData {
     title: string;
-    description?: string;
-    completed?: boolean;
+    description?: string | undefined;
+    completed?: boolean | undefined;
     category: CategoryTypes;
-    priority?: PriorityLevels;
-    deadline?: Date;
+    priority?: PriorityLevels | undefined;
+    deadline?: Date | undefined;
     userId: string;
     userEmail: string;
 }
@@ -51,7 +51,7 @@ export interface CategoryAggregationResult {
 }
 
 export interface UpdateTaskData extends Partial<Omit<CreateTaskData, 'userId' | 'userEmail'>> {
-    id: string;
+    _id: string;
 }
 
 export interface MongoTaskQuery {
