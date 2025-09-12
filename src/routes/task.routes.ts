@@ -23,17 +23,17 @@ export const createTaskRouter = (taskService: ITaskService<ITask>, logger: Logge
   // GET /api/tasks - Con validación de query params
   router.get('/', validate(getTasksRouteSchema), taskController.getUserTasks.bind(taskController));
 
-  // POST /api/tasks - Con validación del body
-  router.post('/', validate(createTaskRouteSchema), taskController.createTask.bind(taskController));
+  // POST /api/tasks/create - Con validación del body
+  router.post('/create', validate(createTaskRouteSchema), taskController.createTask.bind(taskController));
 
-  // PUT /api/tasks/:id - Con validación de params y body
-  router.put('/:id', validate(updateTaskRouteSchema), taskController.updateTask.bind(taskController));
+  // PUT /api/tasks/update/:id - Con validación de params y body
+  router.put('/update/:id', validate(updateTaskRouteSchema), taskController.updateTask.bind(taskController));
 
   // PATCH /api/tasks/:id/toggle - Con validación de params
   router.patch('/:id/toggle', validate(toggleCompletionRouteSchema), taskController.toggleTaskCompletion.bind(taskController));
 
-  // DELETE /api/tasks/:id - Con validación de params
-  router.delete('/:id', validate(taskByIdRouteSchema), taskController.deleteTask.bind(taskController));
+  // DELETE /api/tasks/delete/:id - Con validación de params
+  router.delete('/delete/:id', validate(taskByIdRouteSchema), taskController.deleteTask.bind(taskController));
 
   return router;
 };
