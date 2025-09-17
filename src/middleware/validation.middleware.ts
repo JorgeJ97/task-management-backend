@@ -1,5 +1,4 @@
 import type { Request, Response, NextFunction} from 'express';
-import type { ParamsDictionary } from 'express-serve-static-core';
 import { ZodObject, ZodError } from 'zod';
 import { Logger } from '../utils/logger';
 
@@ -18,12 +17,6 @@ export const validate = (schema: ZodObject<any>) => {
 
       // Asignación más segura
       if (validatedData.body) req.body = validatedData.body;
-      req.query = isRecord(validatedData.query) ? validatedData.query as import('qs').ParsedQs : req.query;
-      req.params = isRecord(validatedData.params)
-        ? Object.fromEntries(
-            Object.entries(validatedData.params).map(([key, value]) => [key, String(value)])
-          ) as ParamsDictionary
-        : req.params;
 
       next();
     } catch (error) {

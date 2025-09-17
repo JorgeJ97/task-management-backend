@@ -13,8 +13,8 @@ export enum PriorityLevels {
 } 
 export interface TaskFilters {
     completed?: boolean | undefined;
-    category?: CategoryTypes | undefined;
-    priority?: PriorityLevels | undefined;
+    category?: CategoryTypes | CategoryTypes[] | undefined;
+    priority?: PriorityLevels | PriorityLevels[] | undefined;
     search?: string | undefined;
     deadlineFrom?: Date | undefined;
     deadlineTo?: Date | undefined;

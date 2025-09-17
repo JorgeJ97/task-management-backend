@@ -17,7 +17,7 @@ export interface ITask extends Document {
 const TaskSchema : Schema = new Schema({
     title: {
         type: String,
-        require: [true, 'Title is required'],
+        required: [true, 'Title is required'],
         maxLenghth: [100, 'Title cannot be more than 100 characters'],
         trim: true
     },
@@ -57,11 +57,11 @@ const TaskSchema : Schema = new Schema({
     },
     userId: {
         type: String,
-        require: [true, 'User ID is required']
+        required: [true, 'User ID is required']
     },
     userEmail: {
         type: String,
-        require: [true, 'User email is required'],
+        required: [true, 'User email is required'],
         match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email'],
         trim: true
     }

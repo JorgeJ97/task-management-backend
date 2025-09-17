@@ -176,13 +176,17 @@ export class TaskService implements ITaskService <ITask>   {
     
         // Filtro por categoría
         if (filters.category) {
-            query.category = filters.category;
-            }
-    
-        // Filtro por prioridad
+            query.category = Array.isArray(filters.category) 
+                ? { $in: filters.category } 
+                : filters.category;
+       }
+
+        // Filtro por prioridad (ahora acepta array)
         if (filters.priority) {
-        query.priority = filters.priority;
-        }
+            query.priority = Array.isArray(filters.priority) 
+                ? { $in: filters.priority } 
+                : filters.priority;
+       }
     
         // Filtro por fecha de vencimiento
         if (filters.deadlineFrom || filters.deadlineTo) {

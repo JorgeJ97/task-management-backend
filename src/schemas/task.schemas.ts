@@ -16,8 +16,20 @@ export const paginationSchema = z.object({
 
 export const taskFiltersSchema = z.object({
   completed: z.coerce.boolean().optional(),
-  category: z.enum(CategoryTypes).optional(),
-  priority: z.enum(PriorityLevels).optional(),
+  category: z.union([
+    z.enum(CategoryTypes),
+    z.array(z.enum(CategoryTypes))
+  ]).optional().transform(val => {
+    if (val === undefined) return undefined;
+    return Array.isArray(val) ? val : [val];
+  }),
+  priority: z.union([
+    z.enum(PriorityLevels),
+    z.array(z.enum(PriorityLevels))
+  ]).optional().transform(val => {
+    if (val === undefined) return undefined;
+    return Array.isArray(val) ? val : [val];
+  }),
   search: sanitizeString.optional(),
   deadlineFrom: z.coerce.date().optional(),
   deadlineTo: z.coerce.date().optional(),
@@ -33,7 +45,9 @@ export const createTaskSchema = z.object({
   deadline: z.coerce.date()
     .refine(date => date > new Date(), 'Deadline must be a future date')
     .optional(),
-  completed: z.boolean().default(false)
+  completed: z.boolean().default(false),
+  userId: z.string().trim(),
+  userEmail:z.email()
 }).strict(); // ← No permite campos adicionales
 
 export const updateTaskSchema = createTaskSchema.partial().strict();

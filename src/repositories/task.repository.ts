@@ -6,7 +6,7 @@ import type { CategoryAggregationResult, CreateTaskData, MongoTaskQuery, Priorit
 
 export class TaskRepository implements ITaskRepository<ITask> {
 
-    async create(taskData: CreateTaskData): Promise<ITask> {
+    async create(taskData: ITask): Promise<ITask> {
         return await Task.create(taskData);
     }
 

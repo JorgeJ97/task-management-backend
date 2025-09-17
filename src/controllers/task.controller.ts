@@ -27,10 +27,7 @@ export class TaskController {
     try {
       const taskData: CreateTaskInput = req.body as CreateTaskInput;
 
-      const task = await this.taskService.createTask(
-        {...taskData,
-            userId: req.user.id,
-            userEmail: req.user.email} );
+      const task = await this.taskService.createTask(taskData);
 
       res.status(201).json(ApiResponseFactory.success(task, 'Task created successfully', 201));
     } catch (error) {
@@ -51,6 +48,7 @@ export class TaskController {
         pagination.limit
       );
 
+      // this.logger.info("get Tasks", result.tasks)
       res.json(ApiResponseFactory.paginated(result.tasks, result.pagination));
     } catch (error) {
       this.logger.error('Error in getUserTasks controller:', error as Error);

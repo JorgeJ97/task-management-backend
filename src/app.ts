@@ -9,7 +9,8 @@ import { TaskRepository } from './repositories/task.repository';
 import {Database} from './config/database';
 import { Logger } from './utils/logger';
 import { config } from './config/config';
-
+import { ApiResponseFactory } from './utils/api-response';
+import swaggerUi from "swagger-ui-express";
 
 class App {
   public app: express.Application;
@@ -74,21 +75,14 @@ class App {
       this.logger.error('Unhandled error:', error);
 
       if (error.name === 'ValidationError') {
-        return res.status(400).json({ 
-          error: 'Validation Error',
-          details: error.errors 
-        });
+        return res.status(400).json(ApiResponseFactory.error('Validation Error', 400, error.message));
       }
 
       if (error.name === 'UnauthorizedError') {
-        return res.status(401).json({ 
-          error: 'Invalid token' 
-        });
+        return res.status(401).json(ApiResponseFactory.error('Invalid token', 401, error.message));
       }
 
-      res.status(error.status || 500).json({
-        error: process.env.NODE_ENV === 'production' ? 'Internal server error' : error.message
-      });
+      res.status(error.status || 500).json(ApiResponseFactory.error('Internal server error', 500, error.message));
     });
   }
 
