@@ -64,6 +64,9 @@ devDependencies:
   '@types/qs':
     specifier: ^6.14.0
     version: 6.14.0
+  '@types/swagger-jsdoc':
+    specifier: ^6.0.4
+    version: 6.0.4
   '@types/swagger-ui-express':
     specifier: ^4.1.8
     version: 4.1.8
@@ -270,6 +273,10 @@ packages:
 
   /@types/strip-json-comments@0.0.30:
     resolution: {integrity: sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==}
+    dev: true
+
+  /@types/swagger-jsdoc@6.0.4:
+    resolution: {integrity: sha512-W+Xw5epcOZrF/AooUM/PccNMSAFOKWZA5dasNyMujTwsBkU74njSJBpvCCJhHAJ95XRMzQrrW844Btu0uoetwQ==}
     dev: true
 
   /@types/swagger-ui-express@4.1.8:

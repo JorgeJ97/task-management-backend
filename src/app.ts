@@ -10,7 +10,8 @@ import {Database} from './config/database';
 import { Logger } from './utils/logger';
 import { config } from './config/config';
 import { ApiResponseFactory } from './utils/api-response';
-import swaggerUi from "swagger-ui-express";
+import swaggerUi from 'swagger-ui-express';
+import { specs, swaggerUiOptions } from './config/swagger';
 
 class App {
   public app: express.Application;
@@ -49,6 +50,9 @@ class App {
   }
 
   private initializeRoutes(): void {
+
+    // Configuración de Swagger UI
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
     // Health check endpoint
     this.app.get('/health', (req, res) => {
       res.status(200).json({ 

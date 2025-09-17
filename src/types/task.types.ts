@@ -86,3 +86,34 @@ export interface TasksResponse <KTask>{
     tasks: KTask[] | [];
     pagination: PaginationInfo;
 }
+
+export interface Task {
+  _id: string;
+  title: string;
+  description?: string;
+  completed: boolean;
+  category: CategoryTypes;
+  priority: PriorityLevels;
+  deadline?: Date;
+  userId: string;
+  userEmail: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface PaginatedResponse<T = any> extends ApiResponse<T[]> {
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export interface ApiResponse<T = any> {
+  success: boolean;
+  message: string;
+  data?: T;
+  error?: string;
+  statusCode: number;
+}
