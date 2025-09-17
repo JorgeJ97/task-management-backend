@@ -20,7 +20,7 @@ Antes de empezar, asegúrate de tener instalado:
 
 1. **Clona el repositorio:**
    ```bash
-   git clone https://github.com/tuusuario/task-manager.git
+   git clone https://github.com/JorgeJ97/task-management-backend.git
    cd task-manager
    ```
 
