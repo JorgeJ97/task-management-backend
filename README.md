@@ -1,7 +1,7 @@
 # Task Manager API
 
 API desarrollada con **Node.js**, **TypeScript**, **Express** y **MongoDB**, con autenticación mediante **Auth0**.  
-El proyecto está preparado para ejecutarse en local o mediante **Docker Compose**.
+El proyecto está preparado para ejecutarse en local.
 
 ---
 
