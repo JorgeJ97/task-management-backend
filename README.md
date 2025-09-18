@@ -73,7 +73,6 @@ Antes de empezar, asegúrate de tener instalado:
 ├── dist/             # Código compilado a JavaScript
 ├── assets/           # Imágenes y recursos estáticos
 ├── .env.example      # Variables de entorno de ejemplo
-├── docker-compose.yml
 ├── package.json
 └── README.md
 ```
@@ -110,4 +109,4 @@ http://localhost:3000/api-docs
 
 ## ✨ Autor
 
-Creado por **[Jorge Jimenez]** 🛠️
+Creado por **Jorge Jimenez** 🛠️
